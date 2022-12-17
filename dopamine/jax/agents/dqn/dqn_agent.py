@@ -316,11 +316,13 @@ class JaxDQNAgent(object):
     self.eval_mode = eval_mode
     self.training_steps = 0
     if isinstance(summary_writer, str):
-      try:
-        tf.compat.v1.enable_v2_behavior()
-      except ValueError:
-        pass
-      self.summary_writer = tf.summary.create_file_writer(summary_writer)
+      # try:
+      #   tf.compat.v1.enable_v2_behavior()
+      # except ValueError:
+      #   pass
+      tf.compat.v1.disable_v2_behavior()
+      # self.summary_writer = tf.summary.create_file_writer(summary_writer)
+      self.summary_writer = tf.compat.v1.summary.FileWriter(summary_writer)
     else:
       self.summary_writer = summary_writer
     self.summary_writing_frequency = summary_writing_frequency
